@@ -1,0 +1,6 @@
+﻿services:
+  stocks.api:
+    image: stocks.api
+    build:
+      context: .
+      dockerfile: Services/Stocks/Stocks.API/Dockerfile
