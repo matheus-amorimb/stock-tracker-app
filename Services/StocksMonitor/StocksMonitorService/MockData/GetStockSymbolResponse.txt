@@ -1,0 +1,26 @@
+{
+    "bestMatches": [
+        {
+            "1. symbol": "PETR4F.SAO",
+            "2. name": "PETR4F",
+            "3. type": "Equity",
+            "4. region": "Brazil/Sao Paolo",
+            "5. marketOpen": "10:00",
+            "6. marketClose": "17:30",
+            "7. timezone": "UTC-03",
+            "8. currency": "BRL",
+            "9. matchScore": "0.9091"
+        },
+        {
+            "1. symbol": "PETR4.SAO",
+            "2. name": "Petróleo Brasileiro S.A. - Petrobras",
+            "3. type": "Equity",
+            "4. region": "Brazil/Sao Paolo",
+            "5. marketOpen": "10:00",
+            "6. marketClose": "17:30",
+            "7. timezone": "UTC-03",
+            "8. currency": "BRL",
+            "9. matchScore": "0.7692"
+        }
+    ]
+}
