@@ -16,6 +16,7 @@ global using MassTransit;
 global using MediatR;
 
 // Project-specific namespaces
+global using Stocks.API;
 global using Stocks.API.Data;
 global using Stocks.API.Exceptions;
 global using Stocks.API.MessageBroker;
