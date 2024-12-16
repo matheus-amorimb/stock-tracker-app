@@ -8,8 +8,6 @@ public static class BrokerExtension
         {
             cfg.SetKebabCaseEndpointNameFormatter();
 
-            cfg.AddConsumer<ConsumerExample>();
-            
             cfg.UsingRabbitMq(((context, configurator) =>
             {
                 var hostUri = new Uri(configuration.GetValue<string>("MessageBroker:Host") ?? throw new NullReferenceException());
@@ -24,6 +22,7 @@ public static class BrokerExtension
                     hostConfigurator.Username(userName);
                     hostConfigurator.Password(password);
                 });
+                
                 configurator.Message<SubscribedEvent>(topologyConfigurator =>
                 {
                     topologyConfigurator.SetEntityName(subscribedTopicName);
@@ -32,13 +31,6 @@ public static class BrokerExtension
                 configurator.Message<UnsubscribedEvent>(topologyConfigurator =>
                 {
                     topologyConfigurator.SetEntityName(unsubscribedTopicName);
-                });
-                
-                configurator.ReceiveEndpoint(subscribedEventQueueName, endpointConfigurator =>
-                {
-                    endpointConfigurator.ConfigureConsumeTopology = false;
-                    endpointConfigurator.ConfigureConsumer<ConsumerExample>(context);
-                    endpointConfigurator.Bind(subscribedTopicName);
                 });
             }));
         });
