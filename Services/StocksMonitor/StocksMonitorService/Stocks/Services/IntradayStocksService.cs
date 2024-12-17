@@ -19,22 +19,27 @@ public class IntradayStocksService : IStockService<StockIntradayDataResponse, In
     {
         var historicalData = await GetHistoricalStockDataAsync(stockName);
         var mostRecentData = historicalData?.TimeSeries?.FirstOrDefault();
-        if (mostRecentData == null) return null;
-        // var stockDate = DateTime.Parse(mostRecentData.Value.Key);
-        // if (!HasStockDataBeenUpdated(stockDate))
-        // {
-        //     _logger.LogInformation($"[STOCKS-MONITOR] The data has not been updated yet.");
-        //     return null;
-        // }
-        return mostRecentData;
+        if (mostRecentData == null)
+        {
+            _logger.LogInformation($"[SERVICE] The data fetched from API is empty.");
+            return null;
+        }
+        var stockDate = DateTime.Parse(mostRecentData.Value.Key);
+        if (HasStockDataBeenUpdated(stockDate)) return mostRecentData;
+        _logger.LogInformation($"[SERVICE] The data has not been updated yet.");
+        return null;
     }
     
     public async Task<StockIntradayDataResponse?> GetHistoricalStockDataAsync(string stockName)
     {
-        // var endpointUrl = await BuildEndpointUrlForStock(stockName);
-        // if (endpointUrl == null) return null;
-        // var data = await GetStockDataResponseAsync(endpointUrl);
-        var data = await GetStockDataResponseFromTxt();
+        var endpointUrl = await BuildEndpointUrlForStock(stockName);
+        if (endpointUrl == null)
+        {
+            _logger.LogInformation($"[SERVICE] Endpoint URL is missing.");
+            return null;
+        }
+        var data = await GetStockDataResponseAsync(endpointUrl);
+        // var data = await GetStockDataResponseFromTxt();
         return data;
     }
     

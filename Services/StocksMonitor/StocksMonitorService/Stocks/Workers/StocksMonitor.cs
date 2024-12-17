@@ -4,7 +4,7 @@ public class StocksMonitor(IntradayStocksService intradayStocksService, DailySto
 {
     public async Task Execute(IJobExecutionContext context)
     {
-        logger.LogInformation($"[STOCKS-MONITOR] Monitoring stocks at: {DateTimeOffset.Now}");
+        logger.LogInformation($"[MONITOR] Monitoring stocks at: {DateTimeOffset.Now}");
         var activeStocks = (await cacheRepository.GetActiveStocks()).ToList();
         if (activeStocks.Count != 0)
         {
@@ -15,12 +15,11 @@ public class StocksMonitor(IntradayStocksService intradayStocksService, DailySto
 
     private async Task MonitorStocksAsync(string stockName)
     {
-        // var stockData = await intradayStocksService.GetMostRecentStockDataAsync(stockName);
-        var stockData = await dailyStocksService.GetMostRecentStockDataAsync(stockName);
-        if (stockName != "IBM") return;
+        var stockData = await intradayStocksService.GetMostRecentStockDataAsync(stockName);
+        // var stockData = await dailyStocksService.GetMostRecentStockDataAsync(stockName);
         if (stockData == null)
         {
-            logger.LogWarning($"[STOCKS-MONITOR] No data fetched for {stockName}");
+            logger.LogWarning($"[MONITOR] No data fetched for {stockName}");
             return;
         }
         
@@ -49,7 +48,7 @@ public class StocksMonitor(IntradayStocksService intradayStocksService, DailySto
                 };
                 
                 await PublishEvent(priceAlertTriggeredEvent);
-                logger.LogInformation($"[STOCKS-MONITOR] Alert event triggered for subscriber {subscriber?.SubscriberEmail.ToUpperInvariant()} and stock {stockName}");
+                logger.LogInformation($"[MONITOR] Alert event triggered for subscriber {subscriber?.SubscriberEmail.ToUpperInvariant()} and stock {stockName}");
             }
         }
     }
