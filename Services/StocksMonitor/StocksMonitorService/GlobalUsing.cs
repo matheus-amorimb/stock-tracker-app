@@ -23,4 +23,5 @@ global using StocksMonitorService.Stocks.Events.Consumers;
 global using StocksMonitorService.Stocks.Events.Handlers;
 global using StocksMonitorService.Stocks.Services;
 global using StocksMonitorService.Stocks.Types;
+global using StocksMonitorService.Stocks.Types.AlphaVantage;
 global using StocksMonitorService.Stocks.Workers;
