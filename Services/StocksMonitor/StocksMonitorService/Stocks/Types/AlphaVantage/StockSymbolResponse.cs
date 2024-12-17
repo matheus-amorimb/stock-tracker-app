@@ -1,6 +1,6 @@
-namespace StocksMonitorService.Stocks.Types;
+namespace StocksMonitorService.Stocks.Types.AlphaVantage;
 
-public class GetStockSymbolResponse
+public class StockSymbolResponse
 {
     [JsonPropertyName("bestMatches")]
     public List<StockSymbol>? BestMatches { get; set; }
