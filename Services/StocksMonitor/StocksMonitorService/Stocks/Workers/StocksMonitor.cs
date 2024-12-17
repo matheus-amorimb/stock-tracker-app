@@ -1,16 +1,15 @@
 namespace StocksMonitorService.Stocks.Workers;
 
-public class StocksMonitor(StocksService stocksService, CacheRepository cacheRepository, IServiceProvider serviceProvider) : BackgroundService
+public class StocksMonitor(StocksService stocksService, CacheRepository cacheRepository, IServiceProvider serviceProvider, ILogger<StocksMonitor> logger) : IJob
 {
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    public async Task Execute(IJobExecutionContext context)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        logger.LogInformation($"[STOCKS-MONITOR] Monitoring stocks at: {DateTimeOffset.Now}");
+        var activeStocks = (await cacheRepository.GetActiveStocks()).ToList();
+        if (activeStocks.Count != 0)
         {
-            var activeStocks = await cacheRepository.GetActiveStocks();
-            if (!activeStocks.Any()) return;
             var monitoringTasks = activeStocks.Select(MonitorStocksAsync);
             await Task.WhenAll(monitoringTasks);
-            await Task.Delay(20000, stoppingToken);
         }
     }
 
@@ -48,6 +47,7 @@ public class StocksMonitor(StocksService stocksService, CacheRepository cacheRep
                 };
                 
                 await PublishEvent(priceAlertTriggeredEvent);
+                logger.LogInformation($"[STOCKS-MONITOR] Alert event triggered for subscriber {subscriber?.SubscriberEmail.ToUpperInvariant()} and stock {stockName}");
             }
         }
     }
