@@ -61,10 +61,8 @@ public class EmailService
     
     private string GetEmailSettingsFullPath(string fileName)
     {
-        var solutionRoot = Directory.GetParent(AppContext.BaseDirectory)?.Parent?.Parent?.Parent?.FullName;
-        var relativePath = $"Services/StocksNotification/StocksNotification/Notifications/Email/{fileName}";
-        // var fullPath = Path.Combine(solutionRoot, relativePath);
-        var fullPath = "/home/matheus/matheus-dev/code/projects/stock-tracker-app/Services/StocksNotification/StocksNotification/Notifications/Email/emailsettings.txt";
+        var workingDirectory = Environment.CurrentDirectory;
+        var fullPath = Path.Combine(workingDirectory, fileName);
         return fullPath;
     }
     
@@ -104,10 +102,9 @@ public class EmailService
 
     private string GetEmailPageFullPath(string pageName)
     {
-        var solutionRoot = Directory.GetParent(AppContext.BaseDirectory)?.Parent?.Parent?.Parent?.FullName;
-        var relativePath = $"Services/StocksNotification/StocksNotification/Notifications/Email/EmailPage/{pageName}";
-        // var fullPath = Path.Combine(solutionRoot, relativePath);
-        var fullPath = "/home/matheus/matheus-dev/code/projects/stock-tracker-app/Services/StocksNotification/StocksNotification/Notifications/Email/EmailPage/index.html";
+        var workingDirectory = Environment.CurrentDirectory;
+        var relativePath = $"Notifications/Email/EmailPage/{pageName}";
+        var fullPath = Path.Combine(workingDirectory, relativePath);
         return fullPath;
     }
 
