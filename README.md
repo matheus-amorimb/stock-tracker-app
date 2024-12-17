@@ -4,6 +4,10 @@
 
 Esta aplicação foi desenvolvida para permitir que os usuários se cadastrem em diversas ações e sejam notificados sempre que elas atingirem um valor de compra ou venda definido por eles. Dessa forma, os usuários podem tomar decisões informadas e rápidas sobre suas transações no mercado financeiro.  
 
+<p align="center">
+  <img src="https://github.com/matheus-amorimb/stock-tracker-app/blob/main/github-readme-files/email_example.png" alt="Descrição da imagem">
+</p>
+
 ## Arquitetura  
 
 A solução é composta por três serviços principais, que trabalham de forma integrada para oferecer uma experiência completa e eficiente:  
