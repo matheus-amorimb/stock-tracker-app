@@ -1,6 +1,6 @@
 namespace StocksMonitorService.Stocks.Workers;
 
-public class StocksMonitor(StocksService stocksService, CacheRepository cacheRepository, IServiceProvider serviceProvider, ILogger<StocksMonitor> logger) : IJob
+public class StocksMonitor(IntradayStocksService intradayStocksService, DailyStocksService dailyStocksService,CacheRepository cacheRepository, IServiceProvider serviceProvider, ILogger<StocksMonitor> logger) : IJob
 {
     public async Task Execute(IJobExecutionContext context)
     {
@@ -15,14 +15,16 @@ public class StocksMonitor(StocksService stocksService, CacheRepository cacheRep
 
     private async Task MonitorStocksAsync(string stockName)
     {
-        var stockData = await stocksService.GetMostRecentStockDataAsync(stockName);
+        // var stockData = await intradayStocksService.GetMostRecentStockDataAsync(stockName);
+        var stockData = await dailyStocksService.GetMostRecentStockDataAsync(stockName);
         if (stockName != "IBM") return;
-        if (stockData == null) return;
+        if (stockData == null)
+        {
+            logger.LogWarning($"[STOCKS-MONITOR] No data fetched for {stockName}");
+            return;
+        }
         
         var stockDate = DateTime.Parse(stockData.Value.Key);
-        // if (!HasStockDataBeenUpdated(stockDate)) return;
-        if (HasStockDataBeenUpdated(stockDate)) return;
-        
         Decimal.TryParse(stockData.Value.Value.High, out var stockHighPrice);
         Decimal.TryParse(stockData.Value.Value.Low, out var stockLowPrice);
         
@@ -50,12 +52,6 @@ public class StocksMonitor(StocksService stocksService, CacheRepository cacheRep
                 logger.LogInformation($"[STOCKS-MONITOR] Alert event triggered for subscriber {subscriber?.SubscriberEmail.ToUpperInvariant()} and stock {stockName}");
             }
         }
-    }
-    
-    private bool HasStockDataBeenUpdated(DateTime lastUpdatedDate)
-    {
-        var dateLimit = lastUpdatedDate.AddMinutes(60);
-        return dateLimit >= DateTime.Now;
     }
 
     private async Task PublishEvent(PriceAlertTriggeredEvent priceAlertTriggeredEvent)
