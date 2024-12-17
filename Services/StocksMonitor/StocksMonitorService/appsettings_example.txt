@@ -1,0 +1,24 @@
+{
+  "ConnectionStrings": {
+    "Redis": "localhost:6379"
+  },
+  "AlphaVantage": {
+    "ApiKey": "your_alphavantage_api_key"
+  },
+  "MessageBroker": {
+    "Host": "amqp://localhost:5672",
+    "UserName": "guest",
+    "Password": "guest",
+    "SubscribedTopic": "subscribed-topic",
+    "SubscribedEventQueue": "subscribed-queue",
+    "UnsubscribedTopic": "unsubscribed-topic",
+    "UnsubscribedEventQueue": "unsubscribed-queue",
+    "PriceAlertTriggeredTopic": "price-alert-triggered-topic"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
