@@ -10,7 +10,9 @@ public static class DependencyInjection
             return redis.GetDatabase();
         });
         services.AddSingleton<CacheRepository>();
-        services.AddSingleton<StocksService>();
+        services.AddSingleton<IntradayStocksService>();
+        services.AddSingleton<DailyStocksService>();
+        services.AddSingleton<StocksServiceUtilities>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
         services.AddMessageBroker(configuration);
         services.AddScheduler(configuration);
