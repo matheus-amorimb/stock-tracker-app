@@ -52,7 +52,7 @@ Após isso, será necessário criar o arquivo `appsettings.json` com as credenci
 
 Como referência, você pode usar o arquivo de exemplo abaixo:
 
-Exemplo de `appsettings_example.json`:
+Arquivo de exemplo `appsettings_example.json`:
 
 ```
 {
@@ -103,7 +103,7 @@ Além disso, o **StockMonitor** utiliza a API do [Alpha Vantage](https://www.alp
 1. Gerar uma **API Key** no site do Alpha Vantage ([ApiKey Gratuita](https://www.alphavantage.co/support/#api-key).  
 2. Inserir a API Key nas configurações do arquivo `appsettings.json`.  
 
-Exemplo de `appsettings_example.json`:
+Arquivo de exemplo `appsettings_example.json`:
 
 ```
 {
@@ -131,4 +131,41 @@ Exemplo de `appsettings_example.json`:
   }
 }
 ```
-### StockMonitor
+### StocksNotification
+
+Para configurar o serviço **StocksNotification**, será necessário criar o arquivo `appsettings.json` com as credenciais de acesso ao **RabbitMQ**.  
+
+Arquivo de exemplo `appsettings_example.json`:
+
+```
+{
+  "MessageBroker": {
+    "Host": "amqp://localhost:5672",
+    "UserName": "guest",
+    "Password": "guest",
+    "PriceAlertTopic": "price-alert-triggered-topic",
+    "PriceAlertQueue": "price-alert-triggered-queue"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
+```
+
+Além disso, é necessário configurar as credenciais de e-mail para o envio de notificações. Para isso, crie um arquivo chamado emailsettings.txt na raiz do projeto com o seguinte conteúdo:
+
+Arquivo de exemplo `emailsettings.txt`:
+```
+{
+    "SmtpServer": "smtp.gmail.com",
+    "SmtpPort": 587,
+    "SenderEmail": "your-email",
+    "Username": "your-email",
+    "Password": "your-app-password"
+}
+```
+
+Com todos esses passos concluídos, você estará pronto para rodar toda a aplicação localmente.
