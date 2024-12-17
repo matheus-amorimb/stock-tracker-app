@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Alert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .header {
+            background-color: #002f5b;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .body {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #002f5b;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #ffdd57;
+            text-decoration: none;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            Stock Price Alert
+        </div>
+
+        <div class="body">
+            <p>Dear <strong>{{SubscriberName}}</strong>,</p>
+            <p>The stock <strong>{{StockName}}</strong> has triggered an alert:</p>
+
+            <table class="table">
+                <tr>
+                    <th>Buying Price</th>
+                    <td>${{BuyingPrice}}</td>
+                </tr>
+                <tr>
+                    <th>Selling Price</th>
+                    <td>${{SellingPrice}}</td>
+                </tr>
+                <tr>
+                    <th>Stock High Price</th>
+                    <td>${{StockHighPrice}}</td>
+                </tr>
+                <tr>
+                    <th>Stock Low Price</th>
+                    <td>${{StockLowPrice}}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{StockDateTime}}</td>
+                </tr>
+            </table>
+
+            <p>We recommend taking action based on the above information.</p>
+        </div>
+
+        <div class="footer">
+            <p>You are receiving this email because you subscribed to stock price alerts.</p>
+            <p>
+                <a href="{{UnsubscribeLink}}">Unsubscribe</a> from this stock alert.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
