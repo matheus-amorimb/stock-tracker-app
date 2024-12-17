@@ -1,12 +1,12 @@
-namespace StocksMonitorService.Stocks.Types;
+namespace StocksMonitorService.Stocks.Types.AlphaVantage;
 
-public class GetStockDataResponse
+public class StockIntradayDataResponse : IStockDataResponse<IntradayData>
 {
     [JsonPropertyName("Meta Data")]
     public MetaData? MetaData { get; set; }
 
     [JsonPropertyName("Time Series (60min)")]
-    public Dictionary<string, TimeSeriesEntry>? TimeSeries { get; set; }
+    public Dictionary<string, IntradayData>? TimeSeries { get; set; }
 }
 
 public class MetaData
@@ -30,7 +30,7 @@ public class MetaData
     public string? TimeZone { get; set; }
 }
 
-public class TimeSeriesEntry
+public class IntradayData
 {
     [JsonPropertyName("1. open")]
     public string? Open { get; set; }
