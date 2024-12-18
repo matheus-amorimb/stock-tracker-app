@@ -10,7 +10,7 @@ Esta aplicação foi desenvolvida para permitir que os usuários se cadastrem em
 
 ## Arquitetura  
 
-A solução é composta por três serviços principais, que trabalham de forma integrada para oferecer uma experiência completa e eficiente:  
+A solução é composta por três serviços principais:  
 
 ### 1. **StocksApi**  
 Este serviço é responsável pela interação inicial com os usuários, oferecendo funcionalidades como:  
